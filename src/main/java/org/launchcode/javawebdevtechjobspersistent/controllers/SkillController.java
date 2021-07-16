@@ -1,7 +1,7 @@
 package org.launchcode.javawebdevtechjobspersistent.controllers;
 
-import org.launchcode.javawebdevtechjobspersistent.models.Employer;
-import org.launchcode.javawebdevtechjobspersistent.models.data.EmployerRepository;
+import org.launchcode.javawebdevtechjobspersistent.models.Skill;
+import org.launchcode.javawebdevtechjobspersistent.models.data.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,15 +9,14 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("employers")
-public class EmployerController {
+@RequestMapping("skills")
+public class SkillController {
 
     @Autowired
-    private EmployerRepository employerRepository;
+    private SkillRepository skillRepository;
 
     // Added index method to return a list of Employers
     @RequestMapping("")
@@ -25,43 +24,43 @@ public class EmployerController {
 
         // Add the title attribute to the model, plus a list of all employers from the EmployerRepository
         model.addAttribute("title", "My Employers");
-        Iterable<Employer> employers = employerRepository.findAll();
-        model.addAttribute("employers", employers);
+        Iterable<Skill> skills = skillRepository.findAll();
+        model.addAttribute("skills", skills);
 
         // return the resources/templates/employers/index.html view
-        return "employers/index";
+        return "skills/index";
     }
 
     @GetMapping("add")
-    public String displayAddEmployerForm(Model model) {
-        model.addAttribute(new Employer());
-        return "employers/add";
+    public String displayAddSkillForm(Model model) {
+        model.addAttribute(new Skill());
+        return "skills/add";
     }
 
     @PostMapping("add")
-    public String processAddEmployerForm(@ModelAttribute @Valid Employer newEmployer,
+    public String processAddSkillForm(@ModelAttribute @Valid Skill newSkill,
                                     Errors errors, Model model) {
 // Add call to Save method to store new Employer
-        employerRepository.save(newEmployer);
+        skillRepository.save(newSkill);
 
         if (errors.hasErrors()) {
-            return "employers/add";
+            return "skills/add";
         }
 
         return "redirect:";
     }
 
-    @GetMapping("view/{employerId}")
-    public String displayViewEmployer(Model model, @PathVariable int employerId) {
+    @GetMapping("view/{skillId}")
+    public String displayViewSkill(Model model, @PathVariable int skillId) {
 
         //Calls respository and tells it to get a single entry from the database
         // by passing the employer ID from the url
 
-        Optional optEmployer = employerRepository.findById(employerId);
-        if (optEmployer.isPresent()) {
-            Employer employer = (Employer) optEmployer.get();
-            model.addAttribute("employer", employer);
-            return "employers/view";
+        Optional optSkill = skillRepository.findById(skillId);
+        if (optSkill.isPresent()) {
+            Skill skill = (Skill) optSkill.get();
+            model.addAttribute("skill", skill);
+            return "skills/view";
         } else {
             return "redirect:../";
         }

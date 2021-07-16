@@ -1,11 +1,27 @@
 package org.launchcode.javawebdevtechjobspersistent.models;
 
+import org.springframework.beans.factory.annotation.Required;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
+// Added annotation for superclass and identity field so the subclasses also inherit the
+//the properties of the superclass.
+
+@MappedSuperclass
 
 public abstract class AbstractEntity {
-
+    @Id
+    @GeneratedValue
     private int id;
+
+    //Added validation annotations so that user can't leave field blank
+    @Size(min = 1, max = 100)
 
     private String name;
 
