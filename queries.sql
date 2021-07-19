@@ -14,3 +14,9 @@ select * from employer where location = 'St. Louis City';
 drop table job;
 
 ## Part 4: Test it with SQL
+
+select * from skill
+where id in (select skills_id from job_skills)
+order by name, description asc;
+## This does not use "is not null" because the relationship
+## is maintained in a third join table

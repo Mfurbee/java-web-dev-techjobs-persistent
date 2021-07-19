@@ -53,8 +53,8 @@ public class SkillController {
     @GetMapping("view/{skillId}")
     public String displayViewSkill(Model model, @PathVariable int skillId) {
 
-        //Calls respository and tells it to get a single entry from the database
-        // by passing the employer ID from the url
+        //Calls repository and tells it to get a single entry from the database
+        // by passing the skill ID from the url
 
         Optional optSkill = skillRepository.findById(skillId);
         if (optSkill.isPresent()) {

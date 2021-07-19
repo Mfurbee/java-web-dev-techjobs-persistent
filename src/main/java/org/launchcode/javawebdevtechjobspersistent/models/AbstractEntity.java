@@ -3,6 +3,7 @@ package org.launchcode.javawebdevtechjobspersistent.models;
 import org.springframework.beans.factory.annotation.Required;
 
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.Max;
